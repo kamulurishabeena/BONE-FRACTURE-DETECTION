@@ -1,74 +1,106 @@
- 🦴 FractureAI
-Hierarchical Deep Learning Framework for Bone Fracture Detection from X-ray Images
-📌 Overview
-FractureAI is a deployment-ready, hierarchical deep learning system designed to automatically detect bone fractures from musculoskeletal X-ray images.
+# 🦴 FractureAI
+### Hierarchical Deep Learning Framework for Bone Fracture Detection from X-ray Images
 
-Built using the MURA (Musculoskeletal Radiographs) dataset, the system leverages EfficientNetB1-based transfer learning, incorporates Explainable AI (Grad-CAM + ROI) for interpretability, and is deployed through a Flask web application capable of generating AI-assisted radiology reports in PDF format.
+---
 
-This project combines research-grade modeling with real-world deployment architecture.
+## 📌 Overview
 
-🚀 Key Highlights
-🔍 Multi-class anatomical region classification (Elbow, Hand, Shoulder)
-🧠 Bone-specific fracture detection models
-📊 EfficientNetB1 with transfer learning (ImageNet)
-📈 Performance evaluation using standard classification metrics
-🔎 Grad-CAM based visual explanations
-📄 Automated AI-assisted PDF report generation
-🌐 Flask-based web deployment
-⚙️ Clear separation of training and inference pipelines
-🏗️ System Architecture
-🔹 Training / System Architecture
-Dataset collection (MURA)
-Image preprocessing (224×224 resizing, normalization)
-Train–validation–test split
-Multi-class anatomical classification
-Conditional routing
-Bone-specific fracture detection models
-Model evaluation
-🔹 Deployment Architecture
-Web-based X-ray upload
-Flask backend processing
-Pre-trained model inference
-Explainable AI visualization
-PDF report generation
-Training is performed offline. Deployment uses pre-trained models for inference only.
+**FractureAI** is a hierarchical deep learning system designed to detect bone fractures from musculoskeletal X-ray images.
 
-🧠 Model Design
-Component	Description
-Backbone	EfficientNetB1
-Input Size	224 × 224 RGB
-Strategy	Transfer Learning
-Tasks	Multi-class + Binary classification
-Output	Fractured / Normal
-Hierarchical Classification Strategy
-1️⃣ Stage 1: Identify anatomical region 2️⃣ Stage 2: Route image to bone-specific fracture model
+Built using the **MURA (Musculoskeletal Radiographs) dataset**, the system uses EfficientNet-based transfer learning, Explainable AI (Grad-CAM + ROI), and a Flask web application to generate AI-assisted radiology reports in PDF format.
 
-This improves generalization and reduces inter-anatomy feature confusion.
+The project combines deep learning, explainable AI, and web deployment into an integrated medical imaging application.
 
-🔎 Explainable AI (XAI)
-To ensure clinical interpretability:
+## 🚀 Key Features
 
-Grad-CAM highlights influential image regions
-ROI extraction localizes relevant structural areas
-Visual explanations are displayed alongside predictions and embedded in generated reports.
+- 🔍 Anatomical region classification (Elbow, Hand, Shoulder)
+- 🧠 Bone-specific fracture detection
+- 📊 EfficientNetB1 transfer learning with ImageNet weights
+- 📈 Model evaluation using standard classification metrics
+- 🔎 Explainable AI using Grad-CAM
+- 🎯 Region of Interest (ROI) extraction
+- 📄 Automated PDF report generation
+- 🌐 Flask-based web application
+- ⚙️ Separate training and inference pipelines
 
-📊 Evaluation Metrics
-Accuracy
-Precision
-Recall
-F1-score
-Loss
-Metrics are computed separately for each anatomical region.
+## 🏗️ System Architecture
 
-📂 Project Structure
+### Training Pipeline
+
+1. MURA dataset collection
+2. Image preprocessing and resizing (224 × 224)
+3. Train-validation-test split
+4. Anatomical region classification
+5. Conditional model routing
+6. Bone-specific fracture detection
+7. Model evaluation
+
+### Deployment Pipeline
+
+1. Upload X-ray image through the web application
+2. Process image using Flask backend
+3. Predict anatomical region
+4. Perform fracture classification
+5. Generate Grad-CAM and ROI visualizations
+6. Generate downloadable PDF report
+
+**Note:** Model training is performed offline. The deployed application uses pre-trained models for inference.
+
+## 🧠 Model Architecture
+
+| Component | Description |
+|---|---|
+| Backbone | EfficientNetB1 |
+| Input Size | 224 × 224 RGB |
+| Learning Strategy | Transfer Learning |
+| Pre-trained Weights | ImageNet |
+| Classification | Multi-class and Binary |
+| Output | Fractured / Normal |
+
+### Hierarchical Classification
+
+**Stage 1 – Anatomical Classification**
+
+Identifies the anatomical region of the uploaded X-ray:
+
+- Elbow
+- Hand
+- Shoulder
+
+**Stage 2 – Fracture Detection**
+
+Routes the X-ray image to the corresponding bone-specific model to classify it as fractured or normal.
+
+## 🔎 Explainable AI (XAI)
+
+The system incorporates Explainable AI techniques to improve prediction interpretability.
+
+- **Grad-CAM:** Highlights image regions that contribute to the model's prediction.
+- **ROI Extraction:** Identifies relevant regions of interest in the X-ray image.
+
+Visual explanations are displayed alongside predictions and included in the generated PDF reports.
+
+## 📊 Model Evaluation
+
+The models are evaluated independently for each anatomical region using:
+
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- Loss
+
+## 📂 Project Structure
+
+```text
 FractureAI/
 │
-├── app.py                     # Flask application
-├── predictions.py             # Inference engine
-├── visual_explainability.py   # Grad-CAM + ROI logic
+├── app.py
+├── predictions.py
+├── visual_explainability.py
 ├── requirements.txt
 │
-├── templates/                 # HTML frontend
+├── templates/
 │   ├── index.html
 │   ├── predict.html
 │   ├── result.html
@@ -77,63 +109,96 @@ FractureAI/
 ├── static/
 │   └── style.css
 │
-├── models/                    # Trained EfficientNet models
+├── models/
+│   └── Trained models
 │
-└── notebooks/                 # Training notebooks
+└── notebooks/
     ├── EfficientNetB1_Final_Elbow.ipynb
     ├── EfficientNetB1_Final_Hand.ipynb
     ├── EfficientNetB1_Final_Shoulder.ipynb
     └── EfficientNetB1_Parts.ipynb
-⚙️ Installation
-1. Clone the repository
+```
+
+## ⚙️ Installation and Setup
+
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/Vinaykumar21798/bonescan-ai.git
+
 cd bonescan-ai
-2. Create virtual environment (recommended)
+```
+
+### 2. Create a Virtual Environment
+
+**Windows:**
+
+```bash
 python -m venv venv
-source venv/bin/activate        # macOS/Linux
-venv\Scripts\activate           # Windows
-3. Install dependencies
+venv\Scripts\activate
+```
+
+**Linux / macOS:**
+
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
+
+```bash
 pip install -r requirements.txt
-▶️ Run the Application
+```
+
+## ▶️ Run the Application
+
+```bash
 python app.py
-📄 Output
+```
+
+Open the local URL displayed in your terminal to access the application.
+
+## 📄 Application Output
+
 The system provides:
 
-Fracture classification result
-Confidence score
-Visual explanation (Grad-CAM + ROI)
-Downloadable AI-assisted radiology report (PDF)
-🎯 Applications
-Clinical decision support systems
-Radiology workflow assistance
-Medical AI research
-Educational tools for medical imaging
-🔮 Future Enhancements
-DICOM support
-Uncertainty quantification
-Model monitoring for drift detection
-Integration with hospital PACS systems
-Expansion to additional anatomical regions
-👨‍💻 Author
-Developed as part of an AI/ML research project focused on building explainable and deployable medical imaging systems.
+- Fracture classification result
+- Prediction confidence score
+- Grad-CAM visualization
+- ROI-based explanation
+- Downloadable AI-assisted PDF report
 
-⭐ Acknowledgment
-Dataset: MURA – Musculoskeletal Radiographs
+## 🎯 Applications
 
-📜 License
-For research and educational purposes.
+- Medical imaging research
+- Radiology workflow assistance
+- Clinical decision support research
+- Educational applications in medical AI
 
-Releases
-No releases published
-Packages
-No packages published
-Contributors
-1
- (1)
-@Vinaykumar21798
-Vinaykumar21798TapelaVinaykumar
-Languages
-Jupyter Notebook
-95.6%
-HTML
-2.8%
+## 🔮 Future Enhancements
+
+- DICOM image support
+- Uncertainty quantification
+- Model drift monitoring
+- Hospital PACS integration
+- Support for additional anatomical regions
+
+## 🛠️ Technologies Used
+
+- **Programming:** Python
+- **Deep Learning:** TensorFlow, Keras
+- **Architecture:** EfficientNetB1
+- **Computer Vision:** OpenCV
+- **Explainable AI:** Grad-CAM
+- **Backend:** Flask
+- **Frontend:** HTML, CSS
+- **Dataset:** MURA
+
+## ⭐ Acknowledgment
+
+Dataset: [MURA – Musculoskeletal Radiographs](https://stanfordmlgroup.github.io/competitions/mura/)
+
+## 📜 Disclaimer
+
+This project is developed for research and educational purposes. Its predictions are not a substitute for professional medical diagnosis.
